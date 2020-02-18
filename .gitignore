@@ -1,0 +1,8 @@
+node_modules
+coverage
+dist
+*.log
+.doc
+.docz
+lib
+es

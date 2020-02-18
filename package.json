@@ -1,0 +1,26 @@
+{
+  "name": "react-g",
+  "version": "0.1.0",
+  "description": "react render for g",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhanba/react-g.git"
+  },
+  "keywords": [
+    "react",
+    "g"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhanba/react-g/issues"
+  },
+  "homepage": "https://github.com/zhanba/react-g#readme",
+  "dependencies": {
+    "react-reconciler": "^0.24.0"
+  }
+}
