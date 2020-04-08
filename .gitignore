@@ -6,3 +6,4 @@ dist
 .docz
 lib
 es
+src/.umi

@@ -1,10 +1,16 @@
 {
-  "name": "react-g",
+  "name": "react-g-canvas",
   "version": "0.1.0",
-  "description": "react render for g",
-  "main": "index.js",
+  "description": "react render for @antv/g-canvas",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "father build",
+    "build:watch": "father build --watch",
+    "test": "father test",
+    "cov": "father test --coverage",
+    "docs": "dumi dev"
   },
   "repository": {
     "type": "git",
@@ -21,6 +27,25 @@
   },
   "homepage": "https://github.com/zhanba/react-g#readme",
   "dependencies": {
-    "react-reconciler": "^0.24.0"
-  }
+    "@antv/g-canvas": "^0.4.2",
+    "@types/react-reconciler": "^0.18.0",
+    "@types/scheduler": "^0.16.1",
+    "react-reconciler": "^0.24.0",
+    "scheduler": "^0.19.1"
+  },
+  "devDependencies": {
+    "@umijs/fabric": "^2.0.8",
+    "dumi": "^1.0.15",
+    "father": "^2.29.2"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.9.32",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ]
 }

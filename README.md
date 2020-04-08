@@ -2,5 +2,11 @@
 
 react render for g
 
-## usage
+## Usage
 
+## TODO
+
+- animate
+- event
+- ref
+- devtool
