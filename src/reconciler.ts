@@ -6,15 +6,15 @@ import {
   unstable_now as now,
   unstable_shouldYield as shouldYield,
 } from 'scheduler';
-import { Canvas as GCanvas, Group as GGroup } from '@antv/g-canvas';
-
-import { Rect as GRect } from '@antv/g-canvas/lib/shape';
+import { Group as GGroup, Shape, IElement, IContainer, ShapeBase, IShape } from '@antv/g-canvas';
 import { generateId } from './id';
+
+const { Rect: GRect } = Shape;
 
 type Type = 'Rect' | 'Circle' | 'Text' | 'Group';
 type Props = any;
 type Container = any;
-type Instance = any;
+type Instance = IContainer | IShape;
 type TextInstance = any;
 type HydratableInstance = any;
 type PublicInstance = any;
@@ -23,6 +23,30 @@ type UpdatePayload = any;
 type ChildSet = any;
 type TimeoutHandle = any;
 type NoTimeout = any;
+
+function processProps(newProps: any) {
+  const props: any = {};
+  // for (const propKey of Object.keys(newProps)) {
+  //   if (typeof newProps[propKey] === 'function') {
+  //   } else if (propKey === 'style') {
+  //     props[propKey] = newProps[propKey] || '';
+  //   } else if (propKey === 'children') {
+  //     // pass
+  //   } else {
+  //     props[propKey] = newProps[propKey];
+  //   }
+  // }
+
+  Object.keys(newProps).forEach(propKey => {
+    if (propKey === 'children') {
+      // pass
+    } else {
+      props[propKey] = newProps[propKey];
+    }
+  });
+
+  return props;
+}
 
 export const reconsiler = ReactReconciler<
   Type,
@@ -56,19 +80,17 @@ export const reconsiler = ReactReconciler<
     hostContext: HostContext,
     internalInstanceHandle: OpaqueHandle,
   ): Instance {
-    console.log('createInstance ', type);
-    console.log('rootContainerInstance', rootContainerInstance);
+    console.log('createInstance ', type, props);
     if (type === 'Group') {
       return new GGroup({ id: generateId(), attrs: props });
     }
-    if (type === 'Rect') {
-      return new GRect({ id: generateId(), attrs: props });
-    }
-    return new GGroup({ id: generateId(), attrs: props });
+    return new Shape[type]({ id: generateId(), attrs: props });
   },
   appendInitialChild(parentInstance: Instance, child: Instance | TextInstance): void {
-    console.log('appendInitialChild', child);
-    parentInstance.add(child);
+    // console.log('appendInitialChild', child);
+    if (parentInstance.isGroup()) {
+      (parentInstance as IContainer).add(child);
+    }
   },
   finalizeInitialChildren(
     parentInstance: Instance,
@@ -89,7 +111,7 @@ export const reconsiler = ReactReconciler<
     hostContext: HostContext,
   ): null | UpdatePayload {
     console.log('prepareUpdate', oldProps, newProps);
-    if (JSON.stringify(oldProps) === JSON.stringify(newProps)) {
+    if (JSON.stringify(processProps(oldProps)) === JSON.stringify(processProps(newProps))) {
       return false;
     }
     return true;
@@ -134,13 +156,17 @@ export const reconsiler = ReactReconciler<
   // -------------------
   appendChild(parentInstance: Instance, child: Instance | TextInstance): void {
     console.log('appendChild');
-    parentInstance.addGroup(child);
+    if (parentInstance.isGroup()) {
+      (parentInstance as IContainer).add(child);
+    }
   },
   appendChildToContainer(container: Container, child: Instance | TextInstance): void {
-    console.log('appendChildToContainer');
+    console.log('appendChildToContainer', container, child);
     if (child.isGroup() && child.isCanvas()) {
       console.error('Canvas children must be Group or Shape!');
+      return;
     }
+
     container.add(child);
   },
   commitTextUpdate(textInstance: TextInstance, oldText: string, newText: string): void {},
@@ -158,7 +184,8 @@ export const reconsiler = ReactReconciler<
     newProps: Props,
     internalInstanceHandle: OpaqueHandle,
   ): void {
-    console.log('commitUpdate');
+    console.log('commitUpdate', instance, newProps);
+    instance.attr(newProps);
   },
   insertBefore(
     parentInstance: Instance,
