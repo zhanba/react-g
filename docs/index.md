@@ -1,5 +1,7 @@
 # demo
 
+## Shape
+
 ```tsx
 import React, { useState, useEffect } from 'react';
 import { ReactG } from 'react-g-canvas';
@@ -99,4 +101,90 @@ const App: React.FC = () => {
 };
 
 export default App;
+```
+
+## Click
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { ReactG } from 'react-g-canvas';
+
+const { Canvas, Rect } = ReactG;
+
+const ClickDemo: React.FC = () => {
+  const [color, setColor] = useState('red');
+
+  return (
+    <Canvas width={600} height={400}>
+      <Rect
+        x={10}
+        y={10}
+        width={100}
+        height={50}
+        fill={color}
+        stroke="#456734"
+        onClick={() => setColor('blue')}
+      ></Rect>
+    </Canvas>
+  );
+};
+
+export default ClickDemo;
+```
+
+## Drag
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { ReactG } from 'react-g-canvas';
+
+const { Canvas, Rect } = ReactG;
+
+const Drag: React.FC = () => {
+  const [color, setColor] = useState('red');
+  const [position, setPosition] = useState({ x: 10, y: 10 });
+  const [dragstart, setDragstart] = useState({ x: 0, y: 0 });
+
+  const handleDragstart = e => {
+    console.log('dragstart', e.x, e.y, position);
+    setDragstart({ x: e.x, y: e.y });
+  };
+
+  const handleDrag = e => {
+    console.log('drag', position.x, e.x, dragstart.x, position.y, e.y, dragstart.y);
+
+    setPosition({ x: position.x + e.x - dragstart.x, y: position.y + e.y - dragstart.y });
+    setDragstart({ x: e.x, y: e.y });
+  };
+
+  const handleDragend = e => {
+    // console.log('dragend', e);
+    // setPosition({ x: e.x, y: e.y });
+  };
+
+  return (
+    <div>
+      <span>position: {`${position.x}, ${position.y}`}</span>
+      <div style={{ border: '1px solid #bfb3b3' }}>
+        <Canvas width={600} height={400}>
+          <Rect
+            x={position.x}
+            y={position.y}
+            width={100}
+            height={50}
+            fill={color}
+            stroke="#456734"
+            draggable={true}
+            onClick={() => setColor('blue')}
+            onDragstart={handleDragstart}
+            onDrag={handleDrag}
+            onDragend={handleDragend}
+          ></Rect>
+        </Canvas>
+      </div>
+    </div>
+  );
+};
+
+export default Drag;
 ```

@@ -24,24 +24,34 @@ type ChildSet = any;
 type TimeoutHandle = any;
 type NoTimeout = any;
 
+const handleEvent = (newProps: any, node: Instance) => {
+  Object.keys(newProps).forEach(propKey => {
+    if (typeof newProps[propKey] === 'function') {
+      const isEvent = propKey.slice(0, 2) === 'on';
+      if (isEvent) {
+        const eventName = propKey.slice(2).toLowerCase();
+        node.on(eventName, newProps[propKey]);
+      }
+    }
+  });
+};
+
 function processProps(newProps: any) {
+  const elementProps = ['draggable', 'zIndex', 'capture', 'visible', 'type'];
   const props: any = {};
-  // for (const propKey of Object.keys(newProps)) {
-  //   if (typeof newProps[propKey] === 'function') {
-  //   } else if (propKey === 'style') {
-  //     props[propKey] = newProps[propKey] || '';
-  //   } else if (propKey === 'children') {
-  //     // pass
-  //   } else {
-  //     props[propKey] = newProps[propKey];
-  //   }
-  // }
 
   Object.keys(newProps).forEach(propKey => {
-    if (propKey === 'children') {
+    if (typeof newProps[propKey] === 'function') {
       // pass
-    } else {
+    } else if (propKey === 'children') {
+      // pass
+    } else if (elementProps.includes(propKey)) {
       props[propKey] = newProps[propKey];
+    } else if (props.attrs) {
+      props.attrs[propKey] = newProps[propKey];
+    } else {
+      props.attrs = {};
+      props.attrs[propKey] = newProps[propKey];
     }
   });
 
@@ -81,10 +91,14 @@ export const reconsiler = ReactReconciler<
     internalInstanceHandle: OpaqueHandle,
   ): Instance {
     console.log('createInstance ', type, props);
+    let instance;
     if (type === 'Group') {
-      return new GGroup({ id: generateId(), attrs: props });
+      instance = new GGroup({ id: generateId(), ...processProps(props) });
+    } else {
+      instance = new Shape[type]({ id: generateId(), ...processProps(props) });
     }
-    return new Shape[type]({ id: generateId(), attrs: props });
+    handleEvent(props, instance);
+    return instance;
   },
   appendInitialChild(parentInstance: Instance, child: Instance | TextInstance): void {
     // console.log('appendInitialChild', child);
@@ -110,7 +124,7 @@ export const reconsiler = ReactReconciler<
     rootContainerInstance: Container,
     hostContext: HostContext,
   ): null | UpdatePayload {
-    console.log('prepareUpdate', oldProps, newProps);
+    // console.log('prepareUpdate', oldProps, newProps);
     if (JSON.stringify(processProps(oldProps)) === JSON.stringify(processProps(newProps))) {
       return false;
     }
@@ -184,7 +198,7 @@ export const reconsiler = ReactReconciler<
     newProps: Props,
     internalInstanceHandle: OpaqueHandle,
   ): void {
-    console.log('commitUpdate', instance, newProps);
+    // console.log('commitUpdate', instance, newProps);
     instance.attr(newProps);
   },
   insertBefore(
@@ -214,7 +228,9 @@ export const reconsiler = ReactReconciler<
     internalInstanceHandle: OpaqueHandle,
     keepChildren: boolean,
     recyclableInstance: Instance,
-  ): Instance {},
+  ): Instance {
+    return instance;
+  },
 
   createContainerChildSet(container: Container): ChildSet {},
 
@@ -227,7 +243,9 @@ export const reconsiler = ReactReconciler<
   //     Hydration
   //     (optional)
   // -------------------
-  canHydrateInstance(instance: HydratableInstance, type: Type, props: Props): null | Instance {},
+  canHydrateInstance(instance: HydratableInstance, type: Type, props: Props): null | Instance {
+    return instance;
+  },
   canHydrateTextInstance(instance: HydratableInstance, text: string): null | TextInstance {},
   getNextHydratableSibling(
     instance: Instance | TextInstance | HydratableInstance,
