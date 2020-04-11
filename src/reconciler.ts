@@ -8,6 +8,7 @@ import {
 } from 'scheduler';
 import { Group as GGroup, Shape, IElement, IContainer, ShapeBase, IShape } from '@antv/g-canvas';
 import { generateId } from './id';
+import shallowEqualObjects from './shallowEqual';
 
 const { Rect: GRect } = Shape;
 
@@ -37,8 +38,31 @@ const handleEvent = (newProps: any, node: Instance) => {
 };
 
 function processProps(newProps: any) {
-  const elementProps = ['draggable', 'zIndex', 'capture', 'visible', 'type'];
+  const elementProps = ['draggable', 'zIndex', 'capture', 'visible', 'type', 'id'];
+  const shapeAttrs = [
+    'x',
+    'y',
+    'rx',
+    'ry',
+    'x1',
+    'y1',
+    'x2',
+    'y2',
+    'width',
+    'height',
+    'text',
+    'fill',
+    'stroke',
+    'img',
+    'startArrow',
+    'endArrow',
+    'symbol',
+    'path',
+    'lineWidth',
+    'points',
+  ];
   const props: any = {};
+  const attrs: any = {};
 
   Object.keys(newProps).forEach(propKey => {
     if (typeof newProps[propKey] === 'function') {
@@ -53,7 +77,26 @@ function processProps(newProps: any) {
       props.attrs = {};
       props.attrs[propKey] = newProps[propKey];
     }
+    if (elementProps.includes(propKey)) {
+      props[propKey] = newProps[propKey];
+    } else if (shapeAttrs.includes(propKey)) {
+      attrs[propKey] = newProps[propKey];
+    }
   });
+
+  // elementProps.forEach(propKey => {
+  //   if (newProps.hasOwnProperty(propKey)) {
+  //     props[propKey] = newProps[propKey];
+  //   }
+  // });
+
+  // shapeAttrs.forEach(propKey => {
+  //   if (newProps.hasOwnProperty(propKey)) {
+  //     attrs[propKey] = newProps[propKey];
+  //   }
+  // });
+
+  props.attrs = attrs;
 
   return props;
 }
@@ -90,7 +133,7 @@ export const reconsiler = ReactReconciler<
     hostContext: HostContext,
     internalInstanceHandle: OpaqueHandle,
   ): Instance {
-    console.log('createInstance ', type, props);
+    // console.log('createInstance ', type, props);
     let instance;
     if (type === 'Group') {
       instance = new GGroup({ id: generateId(), ...processProps(props) });
@@ -128,6 +171,9 @@ export const reconsiler = ReactReconciler<
     if (JSON.stringify(processProps(oldProps)) === JSON.stringify(processProps(newProps))) {
       return false;
     }
+    // if (shallowEqualObjects(oldProps, newProps)) {
+    //   return false;
+    // }
     return true;
   },
 
@@ -169,13 +215,13 @@ export const reconsiler = ReactReconciler<
   //     (optional)
   // -------------------
   appendChild(parentInstance: Instance, child: Instance | TextInstance): void {
-    console.log('appendChild');
+    // console.log('appendChild');
     if (parentInstance.isGroup()) {
       (parentInstance as IContainer).add(child);
     }
   },
   appendChildToContainer(container: Container, child: Instance | TextInstance): void {
-    console.log('appendChildToContainer', container, child);
+    // console.log('appendChildToContainer', container, child);
     if (child.isGroup() && child.isCanvas()) {
       console.error('Canvas children must be Group or Shape!');
       return;
