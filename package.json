@@ -29,6 +29,7 @@
   "homepage": "https://github.com/zhanba/react-g#readme",
   "dependencies": {
     "@antv/g-canvas": "0.3.20",
+    "@types/jest": "^25.2.1",
     "@types/react-reconciler": "^0.18.0",
     "@types/scheduler": "^0.16.1",
     "react-reconciler": "^0.24.0",
