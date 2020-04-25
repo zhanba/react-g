@@ -10,7 +10,8 @@
     "build:watch": "father build --watch",
     "test": "father test",
     "cov": "father test --coverage",
-    "docs": "dumi dev"
+    "docs": "dumi dev",
+    "ci": "father test"
   },
   "repository": {
     "type": "git",
