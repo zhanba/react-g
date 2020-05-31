@@ -1,12 +1,10 @@
-# demo
+# Shape
 
 ## Shape
 
 ```tsx
 import React, { useState, useEffect } from 'react';
-import { ReactG } from 'react-g-canvas';
-
-const {
+import {
   Canvas,
   Rect,
   Group,
@@ -19,19 +17,18 @@ const {
   Path,
   Polygon,
   Polyline,
-} = ReactG;
+} from 'react-g-canvas';
 
 const App: React.FC = () => {
-  const [color, setColor] = useState('red');
+  const [color, setColor] = useState('yellow');
   useEffect(() => {
     const timer = setTimeout(() => {
       setColor('green');
-      console.log('setcolor');
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
   return (
-    <Canvas width={600} height={400}>
+    <Canvas width={1000} height={800}>
       <Group>
         <Text x={200} y={60} text="测试文字以" fill="black" />
         <Circle x={200} y={60} r={30} stroke="black" />
@@ -50,14 +47,18 @@ const App: React.FC = () => {
         <Group>
           <Rect x={10} y={10} width={100} height={50} fill={color} stroke="#456734"></Rect>
         </Group>
+        <Marker x={100} y={100} r={10} symbol="square" stroke="blue" />
         <Marker
-          x={10}
+          x={250}
           y={200}
           r={10}
-          symbol={function(x, y, r) {
-            return [['M', x, y], ['L', x + r, y + r], ['L', x + r * 2, y], ['Z']];
+          symbol={(x, y, r) => {
+            return [
+              ['M', x - r, y],
+              ['L', x + r, y],
+            ];
           }}
-          stroke="black"
+          stroke="green"
         />
         <Path
           startArrow={{
@@ -107,9 +108,7 @@ export default App;
 
 ```tsx
 import React, { useState, useEffect } from 'react';
-import { ReactG } from 'react-g-canvas';
-
-const { Canvas, Rect } = ReactG;
+import { Canvas, Rect } from 'react-g-canvas';
 
 const ClickDemo: React.FC = () => {
   const [color, setColor] = useState('red');
@@ -130,61 +129,4 @@ const ClickDemo: React.FC = () => {
 };
 
 export default ClickDemo;
-```
-
-## Drag
-
-```tsx
-import React, { useState, useEffect } from 'react';
-import { ReactG } from 'react-g-canvas';
-
-const { Canvas, Rect } = ReactG;
-
-const Drag: React.FC = () => {
-  const [color, setColor] = useState('red');
-  const [position, setPosition] = useState({ x: 10, y: 10 });
-  const [dragstart, setDragstart] = useState({ x: 0, y: 0 });
-
-  const handleDragstart = e => {
-    console.log('dragstart', e.x, e.y, position);
-    setDragstart({ x: e.x, y: e.y });
-  };
-
-  const handleDrag = e => {
-    console.log('drag', position.x, e.x, dragstart.x, position.y, e.y, dragstart.y);
-
-    setPosition({ x: position.x + e.x - dragstart.x, y: position.y + e.y - dragstart.y });
-    setDragstart({ x: e.x, y: e.y });
-  };
-
-  const handleDragend = e => {
-    // console.log('dragend', e);
-    // setPosition({ x: e.x, y: e.y });
-  };
-
-  return (
-    <div>
-      <span>position: {`${position.x}, ${position.y}`}</span>
-      <div style={{ border: '1px solid #bfb3b3' }}>
-        <Canvas width={600} height={400}>
-          <Rect
-            x={position.x}
-            y={position.y}
-            width={100}
-            height={50}
-            fill={color}
-            stroke="#456734"
-            draggable={true}
-            onClick={() => setColor('blue')}
-            onDragstart={handleDragstart}
-            onDrag={handleDrag}
-            onDragend={handleDragend}
-          ></Rect>
-        </Canvas>
-      </div>
-    </div>
-  );
-};
-
-export default Drag;
 ```

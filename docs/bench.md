@@ -1,4 +1,4 @@
-# react-g-canvas benchmark
+# benchmark
 
 | 图元数量    | 100 | 1000 | 2000 | 6000 | 10000 | 14000 | 20000 |
 | ----------- | --- | ---- | ---- | ---- | ----- | ----- | ----- |
@@ -6,15 +6,13 @@
 
 ```tsx
 import React, { useState, useEffect } from 'react';
-import { ReactG } from 'react-g-canvas';
-
-const { Canvas, Rect, Group } = ReactG;
+import { Canvas, Rect, Group } from 'react-g-canvas';
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-const nodes = 20000;
+const nodes = 2000;
 
 const rectData = [...Array(nodes).keys()].map(i => {
   const rect = {

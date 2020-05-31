@@ -6,7 +6,6 @@ import { reconsiler } from './reconciler';
 interface CanvasProps {
   width?: number;
   height?: number;
-
   classname?: string;
   role?: string;
   style?: React.CSSProperties;
@@ -34,14 +33,11 @@ export class Canvas extends Component<CanvasProps> {
   }
 
   componentDidUpdate() {
-    // applyNodeProps(this._stage, this.props, prevProps);
-
     reconsiler.updateContainer(this.props.children, this.container, null, () => {});
   }
 
   componentWillUnmount() {
     reconsiler.updateContainer(null, this.container, null, () => {});
-    // this._stage.destroy();
   }
 
   render() {

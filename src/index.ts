@@ -1,23 +1,18 @@
 import { Canvas } from './Canvas';
+import { elements } from './types';
 
-interface Rect extends React.SFC<any> {}
-interface Group extends React.SFC<any> {}
+const {
+  Group,
+  Rect,
+  Text,
+  Circle,
+  Ellipse,
+  Image,
+  Line,
+  Marker,
+  Path,
+  Polygon,
+  Polyline,
+} = elements;
 
-const TYPES = {
-  Group: ('Group' as unknown) as Group,
-  Rect: ('Rect' as unknown) as Rect,
-  Text: 'Text',
-  Circle: 'Circle',
-  Ellipse: 'Ellipse',
-  Image: 'Image',
-  Line: 'Line',
-  Marker: 'Marker',
-  Path: 'Path',
-  Polygon: 'Polygon',
-  Polyline: 'Polyline',
-};
-
-export const ReactG = {
-  Canvas,
-  ...TYPES,
-};
+export { Canvas, Group, Rect, Text, Circle, Ellipse, Image, Line, Marker, Path, Polygon, Polyline };
