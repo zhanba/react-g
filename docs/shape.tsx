@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Canvas,
   Rect,
@@ -13,9 +13,10 @@ import {
   Polygon,
   Polyline,
 } from 'react-g-canvas';
+import { IShape } from '@antv/g-canvas';
 
 const App: React.FC = () => {
-  const shapeRef = createRef();
+  const shapeRef = useRef<IShape>();
   const [color, setColor] = useState('yellow');
   useEffect(() => {
     console.log('ref----', shapeRef.current);
@@ -80,7 +81,7 @@ const App: React.FC = () => {
             [30, 50],
             [60, 100],
           ]}
-          fill="red"
+          fill="grey"
         />
         <Polyline
           points={[
@@ -89,7 +90,7 @@ const App: React.FC = () => {
             [200, 50],
             [300, 100],
           ]}
-          fill="red"
+          stroke="blue"
           startArrow
           endArrow
         />

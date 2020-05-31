@@ -56,6 +56,7 @@ export default class Drag extends Component<{}, State> {
               onDragstart={this.handleDragstart}
               onDrag={this.handleDrag}
               onDragend={this.handleDragend}
+              ss=""
             />
           </Canvas>
         </div>
