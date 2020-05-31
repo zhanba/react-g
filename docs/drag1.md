@@ -9,34 +9,16 @@ const Drag: React.FC = () => {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [dragstart, setDragstart] = useState({ x: 0, y: 0 });
 
-  let handleDragstart;
-  let handleDrag;
-  let handleDragend;
+  const handleDragstart = e => {
+    setDragstart({ x: e.x, y: e.y });
+  };
 
-  useEffect(() => {
-    handleDragstart = e => {
-      console.log('dragstart', e.x, e.y, position);
-      setDragstart({ x: e.x, y: e.y });
-    };
+  const handleDrag = e => {
+    setPosition({ x: position.x + e.x - dragstart.x, y: position.y + e.y - dragstart.y });
+    setDragstart({ x: e.x, y: e.y });
+  };
 
-    handleDrag = e => {
-      console.log('drag ---- ');
-      console.log('drag', e.x, e.y);
-      console.log('old position', position);
-      console.log('old start', dragstart);
-      console.log('new position', {
-        x: position.x + e.x - dragstart.x,
-        y: position.y + e.y - dragstart.y,
-      });
-      setPosition({ x: position.x + e.x - dragstart.x, y: position.y + e.y - dragstart.y });
-      // setDragstart({ x: e.x, y: e.y });
-    };
-
-    handleDragend = e => {
-      console.log('dragend', e);
-      // setPosition({ x: e.x, y: e.y });
-    };
-  });
+  const handleDragend = e => {};
 
   return (
     <div>

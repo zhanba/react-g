@@ -11,7 +11,7 @@ const App: React.FC = () => {
   ]);
   return (
     <div>
-      {/* <span>position: {`${x}, ${y}`}</span> */}
+      <span>position: {`${x}, ${y}`}</span>
       <div style={{ border: '1px solid #bfb3b3' }}>
         <Canvas width={600} height={400}>
           <Circle
