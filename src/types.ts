@@ -17,7 +17,7 @@ const G_CANVAS_ELEMENT = [
 type ElementType = typeof G_CANVAS_ELEMENT[number];
 
 /**
- * host config props
+ * host config type
  */
 export type Type = ElementType;
 export type Props = any;
@@ -60,5 +60,3 @@ export const elements: { [key in ElementType]: React.SFC<any> } = {
   Polygon: ('Polygon' as unknown) as Polygon,
   Polyline: ('Polyline' as unknown) as Polyline,
 };
-
-// const groupProps = ['id', 'type'];

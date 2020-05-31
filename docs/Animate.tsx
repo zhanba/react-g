@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// eslint-disable-next-line import/no-unresolved
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Canvas, Group, Circle, Ellipse, Line } from 'react-g-canvas';
 import { Motion, spring } from 'react-motion';
 

@@ -1,8 +1,7 @@
 import React from 'react';
-
 import { useEventCallback } from 'rxjs-hooks';
 import { map } from 'rxjs/operators';
-import { Canvas, Rect, Circle } from 'react-g-canvas';
+import { Canvas, Circle } from 'react-g-canvas';
 
 const App: React.FC = () => {
   const [handleDrag, [x, y]] = useEventCallback(event$ => event$.pipe(map(e => [e.x, e.y])), [

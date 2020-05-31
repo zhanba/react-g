@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import ReactReconciler, { OpaqueHandle } from 'react-reconciler';
+import React from 'react';
 import {
   unstable_scheduleCallback as scheduleDeferredCallback,
   unstable_cancelCallback as cancelDeferredCallback,
@@ -7,13 +8,7 @@ import {
   unstable_shouldYield as shouldYield,
 } from 'scheduler';
 import { Group as GGroup, Shape, IContainer } from '@antv/g-canvas';
-import {
-  bindShapeEvent,
-  getShapeProps,
-  processProps,
-  updateProps,
-  hasUpdate,
-} from './processProps';
+import { bindShapeEvent, getShapeProps, updateProps } from './processProps';
 
 import { generateId } from './util/id';
 import { log } from './util/debug';
@@ -31,6 +26,7 @@ import {
   NoTimeout,
   Container,
 } from './types';
+import { getClosestInstanceFromNode } from './ReactDOMComponentTree';
 
 export const reconsiler = ReactReconciler<
   Type,
@@ -46,7 +42,9 @@ export const reconsiler = ReactReconciler<
   TimeoutHandle,
   NoTimeout
 >({
-  getPublicInstance(instance: Instance | TextInstance): PublicInstance {},
+  getPublicInstance(instance: Instance | TextInstance): PublicInstance {
+    return instance;
+  },
   getRootHostContext(rootContainerInstance: Container): HostContext {},
   getChildHostContext(
     parentHostContext: HostContext,
@@ -281,4 +279,14 @@ export const reconsiler = ReactReconciler<
     parentInstance: Instance,
     text: string,
   ): void {},
+});
+
+reconsiler.injectIntoDevTools({
+  findFiberByHostInstance: getClosestInstanceFromNode,
+  bundleType: process.env.NODE_ENV !== 'production' ? 1 : 0,
+  version: React.version,
+  rendererPackageName: 'react-g',
+  // getInspectorDataForViewTag: (tag: number) => {
+  //   console.log(tag);
+  // },
 });
