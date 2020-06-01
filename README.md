@@ -1,6 +1,8 @@
 # react-g
 
-React render for @antv/g. Building visualization component in declarative and composable way.
+React render for @antv/g.
+
+Building visualization component in declarative and composable way.
 
 ## Install
 
@@ -39,4 +41,4 @@ export default App;
 
 ## Documentation
 
-Doc in [here]()
+[Here](https://zhanba.github.io/react-g/), under construction.
