@@ -1,12 +1,42 @@
 # react-g
 
-react render for @antv/g
+React render for @antv/g. Building visualization component in declarative and composable way.
 
-## Usage
+## Install
 
-见 demo
+```sh
+npm i react-g-canvas
+```
 
-可以用来做什么？
+## Example
 
-- 使用 React API 来构建 Canvas UI 组件
-- 使用 React 状态管理的思路来处理图形，比如编辑图形
+```tsx
+import React, { useState, useEffect } from 'react';
+import { Canvas, Group, Rect, Text } from 'react-g-canvas';
+
+const App: React.FC = () => {
+  const [color, setColor] = useState('yellow');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setColor('green');
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <Canvas width={1000} height={800}>
+      <Group>
+        <Rect x={10} y={10} width={100} height={50} fill={color} stroke="#456734" />
+        <Text x={200} y={60} text="test" fill="black" />
+      </Group>
+    </Canvas>
+  );
+};
+
+export default App;
+```
+
+## Documentation
+
+Doc in [here]()
