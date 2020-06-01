@@ -1,5 +1,10 @@
 # react-g
 
+[![NPM version][npm-image]][npm-url]
+
+[npm-image]: http://img.shields.io/npm/v/react-g-canvas.svg?style=flat-square&color=blue
+[npm-url]: http://npmjs.org/package/react-g-canvas
+
 React render for @antv/g.
 
 Building visualization component in declarative and composable way.
