@@ -20,8 +20,11 @@
     "url": "git+https://github.com/zhanba/react-g.git"
   },
   "keywords": [
+    "react-g",
+    "react-g-canvas",
     "react",
-    "g"
+    "@antv/g",
+    "canvas"
   ],
   "author": "zhanba",
   "license": "MIT",
