@@ -42,14 +42,14 @@
     "scheduler": "^0.19.1"
   },
   "devDependencies": {
-    "rxjs-hooks": "^0.6.2",
     "@types/react-motion": "^0.0.29",
-    "react-motion": "^0.5.2",
-    "rxjs": "^6.5.5",
-    "gh-pages": "^3.0.0",
     "@umijs/fabric": "^2.0.8",
     "dumi": "^1.0.15",
-    "father": "^2.29.2"
+    "father": "^2.29.2",
+    "gh-pages": "^3.0.0",
+    "react-motion": "^0.5.2",
+    "rxjs": "^6.5.5",
+    "rxjs-hooks": "^0.6.2"
   },
   "peerDependencies": {
     "@types/react": "^16.9.32",

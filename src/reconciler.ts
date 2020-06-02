@@ -27,6 +27,7 @@ import {
   Container,
 } from './types';
 import { getClosestInstanceFromNode } from './ReactDOMComponentTree';
+import { insertBefore, removeChild } from './util/element';
 
 export const reconsiler = ReactReconciler<
   Type,
@@ -177,14 +178,24 @@ export const reconsiler = ReactReconciler<
     parentInstance: Instance,
     child: Instance | TextInstance,
     beforeChild: Instance | TextInstance,
-  ): void {},
+  ): void {
+    insertBefore(parentInstance, child, beforeChild);
+  },
   insertInContainerBefore(
     container: Container,
     child: Instance | TextInstance,
     beforeChild: Instance | TextInstance,
-  ): void {},
-  removeChild(parentInstance: Instance, child: Instance | TextInstance): void {},
-  removeChildFromContainer(container: Container, child: Instance | TextInstance): void {},
+  ): void {
+    insertBefore(container, child, beforeChild);
+  },
+  removeChild(parentInstance: Instance, child: Instance | TextInstance): void {
+    if (parentInstance.isGroup()) {
+      removeChild(parentInstance as IContainer, child);
+    }
+  },
+  removeChildFromContainer(container: Container, child: Instance | TextInstance): void {
+    removeChild(container, child);
+  },
   resetTextContent(instance: Instance): void {},
 
   // -------------------
