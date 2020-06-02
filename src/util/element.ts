@@ -87,6 +87,7 @@ export const insertBefore = (
   children.splice(index, 0, child);
   console.log('insert before');
   child.onCanvasChange('add');
+  // @ts-ignore
   // eslint-disable-next-line no-underscore-dangle
   parentInstance._applyElementMatrix(child);
 };
