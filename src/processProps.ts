@@ -1,5 +1,24 @@
 import { ShapeCfg } from '@antv/g-canvas';
-import { Instance, Props } from './types';
+import { dedupeArrays } from './util/index';
+import {
+  Instance,
+  Props,
+  ELEMENT_PROPS,
+  COLOR_ATTRS,
+  GENERAL_LINE_ATTRS,
+  FONT_ATTRS,
+  CIRCLE_ATTRS,
+  DOM_ATTRS,
+  ELLIPSE_ATTRS,
+  IMAGE_ATTRS,
+  LINE_ATTRS,
+  MARKER_ATTRS,
+  PATH_ATTRS,
+  POLYGON_ATTRS,
+  POLYLINE_ATTRS,
+  RECT_ATTRS,
+  TEXT_ATTRS,
+} from './types';
 
 let zIndexWarningShowed = false;
 
@@ -7,51 +26,35 @@ const Z_INDEX_WARNING = `ReactG: You are using "zIndex" attribute for an element
 react-g may get confused with ordering. Just define correct order of elements in your render function of a component.
 `;
 
-const elementProps = ['draggable', 'zIndex', 'capture', 'visible', 'id', 'type'];
-const shapeAttrs = [
-  'x',
-  'y',
-  'rx',
-  'ry',
-  'r',
-  'x1',
-  'y1',
-  'x2',
-  'y2',
-  'width',
-  'height',
-  'text',
-  'fill',
-  'stroke',
-  'img',
-  'startArrow',
-  'endArrow',
-  'symbol',
-  'path',
-  'lineWidth',
-  'points',
-];
+const SHAPE_ATTRS = dedupeArrays([
+  COLOR_ATTRS,
+  GENERAL_LINE_ATTRS,
+  FONT_ATTRS,
+  CIRCLE_ATTRS,
+  DOM_ATTRS,
+  ELLIPSE_ATTRS,
+  IMAGE_ATTRS,
+  LINE_ATTRS,
+  MARKER_ATTRS,
+  PATH_ATTRS,
+  POLYGON_ATTRS,
+  POLYLINE_ATTRS,
+  RECT_ATTRS,
+  TEXT_ATTRS,
+]);
 
 const isEvent = (key: string) => key.slice(0, 2) === 'on';
 const getEventName = (key: string) => key.substr(2).toLowerCase();
-const isShapeProps = (key: string) => elementProps.includes(key);
-const isShapeAttr = (key: string) => shapeAttrs.includes(key);
+const isShapeProps = (key: string) => ELEMENT_PROPS.includes(key);
+const isShapeAttr = (key: string) => SHAPE_ATTRS.includes(key);
 
 export const getShapeProps = (newProps: Props): ShapeCfg => {
   const props: ShapeCfg = { attrs: {} };
   const attrs: ShapeCfg['attrs'] = {};
   Object.keys(newProps).forEach(propKey => {
-    if (elementProps.includes(propKey)) {
+    if (ELEMENT_PROPS.includes(propKey)) {
       props[propKey] = newProps[propKey];
-    } else if (props.attrs) {
-      props.attrs[propKey] = newProps[propKey];
-    } else {
-      props.attrs = {};
-      props.attrs[propKey] = newProps[propKey];
-    }
-    if (elementProps.includes(propKey)) {
-      props[propKey] = newProps[propKey];
-    } else if (shapeAttrs.includes(propKey)) {
+    } else if (SHAPE_ATTRS.includes(propKey)) {
       attrs[propKey] = newProps[propKey];
     }
   });

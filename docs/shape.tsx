@@ -28,7 +28,7 @@ const App: React.FC = () => {
   return (
     <Canvas width={1000} height={800}>
       <Group>
-        <Text x={200} y={60} text="测试文字以" fill="black" />
+        <Text x={200} y={60} text="测试文字以" fill="black" textBaseline="top" />
         <Circle x={200} y={60} r={30} stroke="black" />
         <Ellipse x={100} y={120} rx={30} ry={20} stroke="red" ref={shapeRef} />
         <Image

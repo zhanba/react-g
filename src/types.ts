@@ -1,6 +1,22 @@
 import { IContainer, IShape, Event, PathCommand } from '@antv/g-canvas';
 
-const G_CANVAS_ELEMENT = [
+/**
+ * host config type
+ */
+export type Type = ElementType;
+export type Props = any;
+export type Container = IContainer;
+export type Instance = IContainer | IShape;
+export type TextInstance = any;
+export type HydratableInstance = any;
+export type PublicInstance = any;
+export type HostContext = any;
+export type UpdatePayload = any;
+export type ChildSet = any;
+export type TimeoutHandle = any;
+export type NoTimeout = any;
+
+export const G_CANVAS_ELEMENT = [
   'Group',
   'Rect',
   'Text',
@@ -16,21 +32,103 @@ const G_CANVAS_ELEMENT = [
 
 type ElementType = typeof G_CANVAS_ELEMENT[number];
 
-/**
- * host config type
- */
-export type Type = ElementType;
-export type Props = any;
-export type Container = any;
-export type Instance = IContainer | IShape;
-export type TextInstance = any;
-export type HydratableInstance = any;
-export type PublicInstance = any;
-export type HostContext = any;
-export type UpdatePayload = any;
-export type ChildSet = any;
-export type TimeoutHandle = any;
-export type NoTimeout = any;
+export const ELEMENT_PROPS = [
+  'id',
+  'name',
+  'type',
+  'visible',
+  'capture',
+  'destroyed',
+  'zIndex',
+  'draggable',
+];
+
+type ElementProps = typeof ELEMENT_PROPS[number];
+
+export const COLOR_ATTRS = [
+  'fill',
+  'stroke',
+  'opacity',
+  'fillOpacity',
+  'strokeOpacity',
+  'shadowColor',
+  'shadowBlur',
+  'shadowOffsetX',
+  'shadowOffsetY',
+  'globalCompositeOperation',
+] as const;
+
+type ColorAttrs = typeof COLOR_ATTRS[number];
+
+export const GENERAL_LINE_ATTRS = [
+  'lineCap',
+  'lineJoin',
+  'lineWidth',
+  'lineAppendWidth',
+  'miterLimit',
+  'lineDash',
+  'startArrow',
+  'endArrow',
+] as const;
+
+type GeneralLineAttrs = typeof GENERAL_LINE_ATTRS[number];
+
+export const FONT_ATTRS = [
+  'font',
+  'textAlign',
+  'textBaseline',
+  'fontStyle',
+  'fontVariant',
+  'fontSize',
+  'fontFamily',
+  'fontWeight',
+] as const;
+
+type FontAttrs = typeof FONT_ATTRS[number];
+
+export const CIRCLE_ATTRS = ['x', 'y', 'r'] as const;
+
+type CircleAttrs = typeof CIRCLE_ATTRS[number];
+
+export const DOM_ATTRS = ['x', 'y', 'width', 'height', 'html'] as const;
+
+type DomAttrs = typeof DOM_ATTRS[number];
+
+export const ELLIPSE_ATTRS = ['x', 'y', 'rx', 'ry'] as const;
+
+type EllipseAttrs = typeof ELLIPSE_ATTRS[number];
+
+export const IMAGE_ATTRS = ['x', 'y', 'width', 'height', 'img'] as const;
+
+type ImageAttrs = typeof IMAGE_ATTRS[number];
+
+export const LINE_ATTRS = ['x1', 'y1', 'x2', 'y2'] as const;
+
+type LineAttrs = typeof LINE_ATTRS[number];
+
+export const MARKER_ATTRS = ['x', 'y', 'r', 'symbol'] as const;
+
+type MarkerAttrs = typeof MARKER_ATTRS[number];
+
+export const PATH_ATTRS = ['path'] as const;
+
+type PathAttrs = typeof PATH_ATTRS[number];
+
+export const POLYGON_ATTRS = ['points'] as const;
+
+type PolygonAttrs = typeof POLYGON_ATTRS[number];
+
+export const POLYLINE_ATTRS = ['points'] as const;
+
+type PolylineAttrs = typeof POLYLINE_ATTRS[number];
+
+export const RECT_ATTRS = ['x', 'y', 'width', 'height', 'radius'] as const;
+
+type RectAttrs = typeof RECT_ATTRS[number];
+
+export const TEXT_ATTRS = ['x', 'y', 'text'] as const;
+
+type TextAttrs = typeof TEXT_ATTRS[number];
 
 /**
  * event
@@ -78,6 +176,7 @@ export type Arrow =
 export type BaseShapeProps = Partial<{
   lineWidth: number;
   lineAppendWidth: number;
+  lineDash: number[];
   fill: string;
   stroke: string;
   strokeOpacity: number;
@@ -101,11 +200,11 @@ export type TextProps = Partial<{
   text: string;
   fontSize: number;
   fontFamily: string;
-  fontStyle: string;
-  fontWeight: string;
-  fontVariant: string;
-  textAlign: string;
-  textBaseline: string;
+  fontStyle: 'normal' | 'italic' | 'oblique';
+  fontWeight: 'normal' | 'bold' | 'bolder' | 'lighter' | number;
+  fontVariant: 'normal' | 'small-caps' | string;
+  textAlign: 'start' | 'center' | 'end' | 'left' | 'right';
+  textBaseline: 'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom';
 }> &
   BaseShapeProps;
 
