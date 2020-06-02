@@ -27,7 +27,7 @@ export function removeChild(container: IContainer, element: IElement, destroy: b
 function setCanvas(element: IElement, canvas: ICanvas) {
   element.set('canvas', canvas);
   if (element.isGroup()) {
-    const children = element.get('children');
+    const children: IElement[] = element.get('children');
     if (children.length) {
       children.forEach(child => {
         setCanvas(child, canvas);
@@ -41,10 +41,10 @@ function setCanvas(element: IElement, canvas: ICanvas) {
  * @param {IElement} element  元素
  * @param {Timeline} timeline 时间轴
  */
-function setTimeline(element: IElement, timeline: Timeline) {
+function setTimeline(element: IElement, timeline: any) {
   element.set('timeline', timeline);
   if (element.isGroup()) {
-    const children = element.get('children');
+    const children: IElement[] = element.get('children');
     if (children.length) {
       children.forEach(child => {
         setTimeline(child, timeline);
