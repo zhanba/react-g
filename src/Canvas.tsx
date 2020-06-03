@@ -51,10 +51,12 @@ export class Canvas extends Component<CanvasProps> {
   }
 
   componentWillUnmount() {
+    this.setRef(null);
     reconsiler.updateContainer(null, this.container, null, () => {});
+    this.canvas.destroy();
   }
 
-  setRef(value: GCanvas) {
+  setRef(value: GCanvas | null) {
     const { forwardedRef } = this.props;
     if (!forwardedRef) {
       return;
