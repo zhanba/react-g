@@ -153,6 +153,8 @@ export type GEvents = Partial<{
   onDragleave: (evt: Event) => void;
   onDragover: (evt: Event) => void;
   onDrop: (evt: Event) => void;
+  onContextmenu: (evt: Event) => void;
+  onMousewheel: (evt: Event) => void;
 }>;
 
 export interface GElementComponent<Props, Node = Element>
@@ -223,7 +225,7 @@ export type EllipseProps = Partial<{
 }> &
   BaseShapeProps;
 
-export type ImageProps = { img: string | Image | HTMLCanvasElement } & Partial<{
+export type ImageProps = { img: string | HTMLImageElement | HTMLCanvasElement } & Partial<{
   x: number;
   y: number;
   width: number;

@@ -1,4 +1,4 @@
-import { Canvas } from './Canvas';
+import { WrappedCanvas } from './Canvas';
 import { elements } from './types';
 
 const {
@@ -15,4 +15,17 @@ const {
   Polyline,
 } = elements;
 
-export { Canvas, Group, Rect, Text, Circle, Ellipse, Image, Line, Marker, Path, Polygon, Polyline };
+export {
+  WrappedCanvas as Canvas,
+  Group,
+  Rect,
+  Text,
+  Circle,
+  Ellipse,
+  Image,
+  Line,
+  Marker,
+  Path,
+  Polygon,
+  Polyline,
+};

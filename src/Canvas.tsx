@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Canvas as GCanvas } from '@antv/g-canvas';
+import { Canvas as GCanvas, Cursor } from '@antv/g-canvas';
 import { FiberRoot } from 'react-reconciler';
 import { reconsiler } from './reconciler';
+import { bindShapeEvent, updateProps } from './processProps';
+import { GEvents } from './types';
 
-interface CanvasProps {
+interface CanvasBaseProps {
   width?: number;
   height?: number;
   classname?: string;
@@ -11,7 +13,14 @@ interface CanvasProps {
   style?: React.CSSProperties;
   tabIndex?: number;
   title?: string;
+  cursor?: Cursor;
+  forwardedRef?: ForwardedRef<GCanvas>;
+  children: React.ReactNode;
 }
+
+type ForwardedRef<T> = ((instance: T | null) => void) | React.MutableRefObject<T | null> | null;
+
+type CanvasProps = CanvasBaseProps & GEvents;
 
 export class Canvas extends Component<CanvasProps> {
   canvasRef = React.createRef<HTMLDivElement>();
@@ -21,18 +30,23 @@ export class Canvas extends Component<CanvasProps> {
   private container!: FiberRoot;
 
   componentDidMount() {
-    const { width = 300, height = 200 } = this.props;
+    const { width = 300, height = 200, cursor } = this.props;
     this.canvas = new GCanvas({
       container: this.canvasRef.current!,
       width,
       height,
+      cursor,
     });
+
+    this.setRef(this.canvas);
+    bindShapeEvent(this.props, this.canvas);
 
     this.container = reconsiler.createContainer(this.canvas, false, false);
     reconsiler.updateContainer(this.props.children, this.container, null, () => {});
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: Readonly<CanvasProps>) {
+    updateProps(this.canvas, this.props, prevProps);
     reconsiler.updateContainer(this.props.children, this.container, null, () => {});
   }
 
@@ -40,11 +54,22 @@ export class Canvas extends Component<CanvasProps> {
     reconsiler.updateContainer(null, this.container, null, () => {});
   }
 
+  setRef(value: GCanvas) {
+    const { forwardedRef } = this.props;
+    if (!forwardedRef) {
+      return;
+    }
+    if (typeof forwardedRef === 'function') {
+      forwardedRef(value);
+    } else {
+      forwardedRef.current = value;
+    }
+  }
+
   render() {
     const { classname, role, style, tabIndex, title } = this.props;
     return (
       <div
-        data-i={2}
         ref={this.canvasRef}
         className={classname}
         role={role}
@@ -55,3 +80,7 @@ export class Canvas extends Component<CanvasProps> {
     );
   }
 }
+
+export const WrappedCanvas = React.forwardRef<GCanvas, CanvasProps>((props, ref) => {
+  return <Canvas {...props} forwardedRef={ref} />;
+});
