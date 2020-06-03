@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Canvas, Group, Circle, Ellipse, Line } from 'react-g-canvas';
+import { Canvas, Group, Ellipse, Line } from 'react-g-canvas';
 
 const App: React.FC = () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
-      setVisible(true);
+      setVisible(false);
     }, 2000);
     return () => {
       clearTimeout(timer);

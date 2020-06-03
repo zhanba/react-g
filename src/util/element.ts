@@ -8,7 +8,7 @@ function removeFromArray(arr: any[], obj: any) {
   }
 }
 
-export function removeChild(container: IContainer, element: IElement, destroy: boolean = true) {
+function removeChild(container: IContainer, element: IElement, destroy: boolean = true) {
   // 不再调用 element.remove() 方法，会出现循环调用
   if (destroy) {
     element.destroy();
@@ -85,7 +85,6 @@ export const insertBefore = (
   }
 
   children.splice(index, 0, child);
-  console.log('insert before');
   child.onCanvasChange('add');
   // @ts-ignore
   // eslint-disable-next-line no-underscore-dangle
