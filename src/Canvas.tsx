@@ -3,7 +3,7 @@ import { Canvas as GCanvas, Cursor } from '@antv/g-canvas';
 import { FiberRoot } from 'react-reconciler';
 import { reconsiler } from './reconciler';
 import { bindShapeEvent, updateProps } from './processProps';
-import { GEvents } from './types';
+import { GEvents, ElementProps } from './types';
 
 interface CanvasBaseProps {
   width?: number;
@@ -20,7 +20,7 @@ interface CanvasBaseProps {
 
 type ForwardedRef<T> = ((instance: T | null) => void) | React.MutableRefObject<T | null> | null;
 
-type CanvasProps = CanvasBaseProps & GEvents;
+type CanvasProps = CanvasBaseProps & ElementProps & GEvents;
 
 export class Canvas extends Component<CanvasProps> {
   canvasRef = React.createRef<HTMLDivElement>();

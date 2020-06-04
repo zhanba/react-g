@@ -43,8 +43,6 @@ export const ELEMENT_PROPS = [
   'draggable',
 ];
 
-type ElementProps = typeof ELEMENT_PROPS[number];
-
 export const COLOR_ATTRS = [
   'fill',
   'stroke',
@@ -58,8 +56,6 @@ export const COLOR_ATTRS = [
   'globalCompositeOperation',
 ] as const;
 
-type ColorAttrs = typeof COLOR_ATTRS[number];
-
 export const GENERAL_LINE_ATTRS = [
   'lineCap',
   'lineJoin',
@@ -70,8 +66,6 @@ export const GENERAL_LINE_ATTRS = [
   'startArrow',
   'endArrow',
 ] as const;
-
-type GeneralLineAttrs = typeof GENERAL_LINE_ATTRS[number];
 
 export const FONT_ATTRS = [
   'font',
@@ -84,51 +78,27 @@ export const FONT_ATTRS = [
   'fontWeight',
 ] as const;
 
-type FontAttrs = typeof FONT_ATTRS[number];
-
 export const CIRCLE_ATTRS = ['x', 'y', 'r'] as const;
-
-type CircleAttrs = typeof CIRCLE_ATTRS[number];
 
 export const DOM_ATTRS = ['x', 'y', 'width', 'height', 'html'] as const;
 
-type DomAttrs = typeof DOM_ATTRS[number];
-
 export const ELLIPSE_ATTRS = ['x', 'y', 'rx', 'ry'] as const;
-
-type EllipseAttrs = typeof ELLIPSE_ATTRS[number];
 
 export const IMAGE_ATTRS = ['x', 'y', 'width', 'height', 'img'] as const;
 
-type ImageAttrs = typeof IMAGE_ATTRS[number];
-
 export const LINE_ATTRS = ['x1', 'y1', 'x2', 'y2'] as const;
-
-type LineAttrs = typeof LINE_ATTRS[number];
 
 export const MARKER_ATTRS = ['x', 'y', 'r', 'symbol'] as const;
 
-type MarkerAttrs = typeof MARKER_ATTRS[number];
-
 export const PATH_ATTRS = ['path'] as const;
-
-type PathAttrs = typeof PATH_ATTRS[number];
 
 export const POLYGON_ATTRS = ['points'] as const;
 
-type PolygonAttrs = typeof POLYGON_ATTRS[number];
-
 export const POLYLINE_ATTRS = ['points'] as const;
-
-type PolylineAttrs = typeof POLYLINE_ATTRS[number];
 
 export const RECT_ATTRS = ['x', 'y', 'width', 'height', 'radius'] as const;
 
-type RectAttrs = typeof RECT_ATTRS[number];
-
 export const TEXT_ATTRS = ['x', 'y', 'text'] as const;
-
-type TextAttrs = typeof TEXT_ATTRS[number];
 
 /**
  * event
@@ -157,11 +127,6 @@ export type GEvents = Partial<{
   onMousewheel: (evt: Event) => void;
 }>;
 
-export interface GElementComponent<Props, Node = Element>
-  extends React.SFC<Props & GEvents & React.RefAttributes<Node>> {
-  getPublicInstance(): Node;
-}
-
 export type Matrix = [number, number, number, number, number, number];
 
 export type PathType = string | PathCommand[];
@@ -175,20 +140,43 @@ export type Arrow =
     }
   | boolean;
 
-export type BaseShapeProps = Partial<{
+export type ElementProps = Partial<{
+  id: string;
   name: string;
-  capture: true;
+  visible: boolean;
+  capture: boolean;
+  zIndex: number;
   draggable: boolean;
+}>;
+
+export type StyleProps = Partial<{
+  fill: string;
+  stroke: string;
+  opacity: number;
+  strokeOpacity: number;
+  fillOpacity: number;
+  shadowColor: string;
+  shadowBlur: number;
+  shadowOffsetX: number;
+  shadowOffsetY: number;
+  globalCompositeOperation: string;
+}>;
+
+export type LineStyleProps = Partial<{
+  lineCap: 'butt' | 'round' | 'square';
+  lineJoin: 'bevel' | 'round' | 'miter';
   lineWidth: number;
   lineAppendWidth: number;
   lineDash: number[];
-  fill: string;
-  stroke: string;
-  strokeOpacity: number;
-  fillOpacity: number;
-  matrix: Matrix;
-  opacity: number;
+  miterLimit: number;
+  startArrow: Arrow;
+  endArrow: Arrow;
 }>;
+
+export interface GElementComponent<Props, Node = Element>
+  extends React.SFC<Props & ElementProps & StyleProps & GEvents & React.RefAttributes<Node>> {
+  getPublicInstance(): Node;
+}
 
 export type RectProps = Partial<{
   x: number;
@@ -196,8 +184,7 @@ export type RectProps = Partial<{
   width: number;
   height: number;
   radius: number;
-}> &
-  BaseShapeProps;
+}>;
 
 export type TextProps = Partial<{
   x: number;
@@ -210,41 +197,35 @@ export type TextProps = Partial<{
   fontVariant: 'normal' | 'small-caps' | string;
   textAlign: 'start' | 'center' | 'end' | 'left' | 'right';
   textBaseline: 'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom';
-}> &
-  BaseShapeProps;
+}>;
 
 export type CircleProps = Partial<{
   x: number;
   y: number;
   r: number;
-}> &
-  BaseShapeProps;
+}>;
 
 export type EllipseProps = Partial<{
   x: number;
   y: number;
   rx: number;
   ry: number;
-}> &
-  BaseShapeProps;
+}>;
 
 export type ImageProps = { img: string | HTMLImageElement | HTMLCanvasElement } & Partial<{
   x: number;
   y: number;
   width: number;
   height: number;
-}> &
-  BaseShapeProps;
+}>;
 
 export type LineProps = Partial<{
   x1: number;
   y1: number;
   x2: number;
   y2: number;
-  startArrow: Arrow;
-  endArrow: Arrow;
 }> &
-  BaseShapeProps;
+  LineStyleProps;
 
 export type MarkerProps = {
   x: number;
@@ -257,21 +238,13 @@ export type MarkerProps = {
     | 'triangle'
     | 'triangle-down'
     | ((x: number, y: number, r: number) => PathType);
-} & BaseShapeProps;
+};
 
-export type PathProps = { path: PathType } & Partial<{
-  startArrow: Arrow;
-  endArrow: Arrow;
-}> &
-  BaseShapeProps;
+export type PathProps = { path: PathType } & LineStyleProps;
 
-export type PolygonProps = { points: Points } & BaseShapeProps;
+export type PolygonProps = { points: Points };
 
-export type PolylineProps = { points: Points } & Partial<{
-  startArrow: Arrow;
-  endArrow: Arrow;
-}> &
-  BaseShapeProps;
+export type PolylineProps = { points: Points } & LineStyleProps;
 
 /**
  * host component
