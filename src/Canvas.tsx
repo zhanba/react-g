@@ -30,12 +30,13 @@ export class Canvas extends Component<CanvasProps> {
   private container!: FiberRoot;
 
   componentDidMount() {
-    const { width = 300, height = 200, cursor } = this.props;
+    const { width = 300, height = 200, cursor, draggable } = this.props;
     this.canvas = new GCanvas({
       container: this.canvasRef.current!,
       width,
       height,
       cursor,
+      draggable,
     });
 
     this.setRef(this.canvas);
@@ -53,7 +54,7 @@ export class Canvas extends Component<CanvasProps> {
   componentWillUnmount() {
     this.setRef(null);
     reconsiler.updateContainer(null, this.container, null, () => {});
-    this.canvas.destroy();
+    // this.canvas.destroy();
   }
 
   setRef(value: GCanvas | null) {

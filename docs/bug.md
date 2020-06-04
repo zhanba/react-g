@@ -7,3 +7,7 @@
 ### 测试 canvas 属性
 
 <code src="./bug/canvasevent.tsx">
+
+### drag canvas
+
+<code src="./bug/draggroup.tsx">
