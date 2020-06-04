@@ -1,5 +1,9 @@
 ## test
 
+## localrefresh
+
+<code src="./bug/localrefresh.tsx">
+
 ### 测试条件显示
 
 <code src="./bug/conditional.tsx">
