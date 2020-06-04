@@ -176,6 +176,9 @@ export type Arrow =
   | boolean;
 
 export type BaseShapeProps = Partial<{
+  name: string;
+  capture: true;
+  draggable: boolean;
   lineWidth: number;
   lineAppendWidth: number;
   lineDash: number[];
