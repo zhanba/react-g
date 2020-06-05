@@ -184,7 +184,8 @@ export type RectProps = Partial<{
   width: number;
   height: number;
   radius: number;
-}>;
+}> &
+  LineStyleProps;
 
 export type TextProps = Partial<{
   x: number;
