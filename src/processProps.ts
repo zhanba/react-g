@@ -94,7 +94,9 @@ export const updateProps = (instance: Instance, newProps: Props, oldProps: Props
 
     if (propChanged) {
       if (isEvent(key)) {
-        instance.on(getEventName(key), newProps[key]);
+        if (typeof newProps[key] === 'function') {
+          instance.on(getEventName(key), newProps[key]);
+        }
       } else if (isShapeProps(key)) {
         instance.set(key, newProps[key]);
       } else if (isShapeAttr(key)) {
