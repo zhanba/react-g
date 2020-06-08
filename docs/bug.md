@@ -1,5 +1,9 @@
 ## test
 
+## conditional events
+
+<code src="./bug/conditionalevent.tsx">
+
 ## localrefresh
 
 <code src="./bug/localrefresh.tsx">
