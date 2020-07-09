@@ -18,7 +18,7 @@ const App: React.FC = () => {
             <Html portal={portal}>
               <div style={{ position: 'absolute', top: cursor.y + 10, left: cursor.x + 10 }}>
                 <Button>button</Button>
-                <div style={{ color: 'red' }}>ceshi----</div>
+                <div style={{ color: 'red' }}>test</div>
               </div>
             </Html>
           )}
@@ -41,7 +41,7 @@ const App: React.FC = () => {
                 setCursor({ x: event.clientX, y: event.clientY });
               }
             }}
-            onMouseleave={event => {
+            onMouseleave={() => {
               setHoverd(false);
               setCursor({
                 x: 0,
