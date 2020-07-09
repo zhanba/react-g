@@ -1,6 +1,6 @@
 {
   "name": "react-g-canvas",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "description": "react render for @antv/g-canvas",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
