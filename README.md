@@ -154,7 +154,7 @@ export default App;
 
 Use ref to access `g` object.
 
-### DOM element(experiment)
+### DOM element ✨ (experiment)
 
 - HTML, use dom element in canvas
 
@@ -271,6 +271,8 @@ const App: React.FC = () => {
 
 export default App;
 ```
+
+### More component is coming 🚀
 
 ## Performance
 
