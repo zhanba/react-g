@@ -5,6 +5,8 @@ export { Html } from './components/Html';
 
 export { Tooltip } from './components/Tooltip';
 
+export { IconFont } from './components/IconFont';
+
 const {
   Group,
   Rect,
