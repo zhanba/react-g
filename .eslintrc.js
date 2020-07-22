@@ -1,10 +1,13 @@
 module.exports = {
-  extends: [require.resolve("@umijs/fabric/dist/eslint")],
+  extends: [require.resolve('@umijs/fabric/dist/eslint')],
+  rules: {
+    'import/no-unresolved': 'off',
+  },
   overrides: [
     {
-      files: ["docs/**"],
+      files: ['docs/**'],
       rules: {
-        "import/no-extraneous-dependencies": "off",
+        'import/no-extraneous-dependencies': 'off',
       },
     },
   ],
