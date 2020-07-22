@@ -18,6 +18,9 @@
     "component",
     "canvas"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@react-g/core": "^1.0.1"
   },
@@ -30,5 +33,6 @@
     "dist",
     "README.md",
     "package.json"
-  ]
+  ],
+  "gitHead": "35cec44dfed7c0de68ea0afa5c688c06bf035cc2"
 }
