@@ -1,6 +1,6 @@
 import GraphEvent from '@antv/g-base/lib/event/graph-event';
 import { WrappedCanvas } from './Canvas';
-import { elements } from './types';
+import { elements, PathType } from './types';
 
 const {
   Group,
@@ -31,6 +31,6 @@ export {
   Polyline,
 };
 
-export { Canvas as GCanvas, Group as GGroup } from '@antv/g-canvas';
+export { Canvas as GCanvas, Group as GGroup, Point } from '@antv/g-canvas';
 
-export { GraphEvent };
+export { GraphEvent, PathType };
