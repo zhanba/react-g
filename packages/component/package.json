@@ -1,6 +1,6 @@
 {
   "name": "@react-g/component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@react-g/component",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -19,7 +19,7 @@
     "canvas"
   ],
   "dependencies": {
-    "@react-g/core": "^1.0.0"
+    "@react-g/core": "^1.0.1"
   },
   "peerDependencies": {
     "@types/react": "^16.9.32",

@@ -1,6 +1,6 @@
 {
   "name": "@react-g/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "react render for @antv/g-canvas",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -25,7 +25,6 @@
     "react-reconciler": "^0.24.0",
     "scheduler": "^0.19.1"
   },
-  "devDependencies": {},
   "peerDependencies": {
     "@types/react": "^16.9.32",
     "react": "^16.13.1",
