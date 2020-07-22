@@ -1,0 +1,39 @@
+{
+  "name": "@react-g/core",
+  "version": "1.0.0",
+  "description": "react render for @antv/g-canvas",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhanba/react-g.git"
+  },
+  "author": "zhanba",
+  "license": "MIT",
+  "keywords": [
+    "react-g",
+    "react-g-canvas",
+    "react",
+    "@antv/g",
+    "canvas"
+  ],
+  "dependencies": {
+    "@antv/g-canvas": "0.4.9",
+    "@types/react-reconciler": "^0.18.0",
+    "@types/scheduler": "^0.16.1",
+    "react-reconciler": "^0.24.0",
+    "scheduler": "^0.19.1"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "@types/react": "^16.9.32",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ]
+}

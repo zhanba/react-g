@@ -1,0 +1,34 @@
+{
+  "name": "@react-g/hooks",
+  "version": "1.0.0",
+  "description": "@react-g/hooks",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhanba/react-g.git"
+  },
+  "author": "zhanba",
+  "license": "MIT",
+  "keywords": [
+    "react-g",
+    "react-g-canvas",
+    "react",
+    "hooks",
+    "canvas"
+  ],
+  "dependencies": {
+    "@antv/g-canvas": "0.4.9"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.9.32",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ]
+}
