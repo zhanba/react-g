@@ -2,20 +2,14 @@
 import { mat3, ext } from '@antv/matrix-util';
 import { Group, Canvas, Point } from '@antv/g-canvas';
 
-export function useZoom() {
+export function useZoom(minZoom?: number, maxZoom?: number) {
   const getZoom = (view: Group) => {
     let zoom = 1;
     const viewMatrix = view.getMatrix();
     zoom = viewMatrix ? viewMatrix[0] : 1;
     return zoom;
   };
-  const setZoom = (
-    view: Group,
-    ratio: number,
-    center?: Point,
-    minZoom?: number,
-    maxZoom?: number,
-  ) => {
+  const setZoom = (view: Group, ratio: number, center?: Point) => {
     let matrix = view.getMatrix();
     if (!matrix) {
       matrix = mat3.create() as number[];
