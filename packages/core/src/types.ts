@@ -178,12 +178,19 @@ export interface GElementComponent<Props, Node = Element>
   getPublicInstance(): Node;
 }
 
+export type Radius =
+  | number
+  | [number]
+  | [number, number]
+  | [number, number, number]
+  | [number, number, number, number];
+
 export type RectProps = Partial<{
   x: number;
   y: number;
   width: number;
   height: number;
-  radius: number;
+  radius: Radius;
 }> &
   LineStyleProps;
 
