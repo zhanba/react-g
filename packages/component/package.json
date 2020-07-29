@@ -1,6 +1,6 @@
 {
   "name": "@react-g/component",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "@react-g/component",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
-    "@react-g/core": "^1.0.6",
+    "@react-g/core": "^1.0.7",
     "@types/react-dom": "^16.9.8",
     "react-dom": "^16.13.1",
     "react-popper": "^2.2.3"
