@@ -9,18 +9,28 @@ export interface IconFontMapItem {
 interface IconFontProps {
   x: number;
   y: number;
-  type: string;
+  name: string;
+  color: string;
+  fontSize: number;
   fontFamily: string;
   iconFontMap: IconFontMapItem[];
 }
 
-export const IconFont: React.FC<IconFontProps> = ({ type, iconFontMap, x, y }) => {
-  const matchIcon = iconFontMap.find((icon) => icon.name === type);
+export const IconFont: React.FC<IconFontProps> = ({
+  name,
+  iconFontMap,
+  x,
+  y,
+  color,
+  fontSize,
+  fontFamily,
+}) => {
+  const matchIcon = iconFontMap.find((icon) => icon.name === name);
   let text;
   if (matchIcon) {
     text = String.fromCodePoint(matchIcon?.unicode_decimal);
   } else {
     text = '';
   }
-  return <Text text={text} x={x} y={y} fill="#234567" />;
+  return <Text text={text} x={x} y={y} fill={color} fontSize={fontSize} fontFamily={fontFamily} />;
 };
