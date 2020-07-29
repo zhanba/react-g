@@ -4,6 +4,7 @@ import {
   Instance,
   Props,
   ELEMENT_PROPS,
+  GENERAL_SHAPE_ATTR,
   COLOR_ATTRS,
   GENERAL_LINE_ATTRS,
   FONT_ATTRS,
@@ -27,6 +28,7 @@ react-g may get confused with ordering. Just define correct order of elements in
 `;
 
 const SHAPE_ATTRS = dedupeArrays([
+  GENERAL_SHAPE_ATTR,
   COLOR_ATTRS,
   GENERAL_LINE_ATTRS,
   FONT_ATTRS,
@@ -51,7 +53,7 @@ const isShapeAttr = (key: string) => SHAPE_ATTRS.includes(key);
 export const getShapeProps = (newProps: Props): ShapeCfg => {
   const props: ShapeCfg = { attrs: {} };
   const attrs: ShapeCfg['attrs'] = {};
-  Object.keys(newProps).forEach(propKey => {
+  Object.keys(newProps).forEach((propKey) => {
     if (ELEMENT_PROPS.includes(propKey)) {
       props[propKey] = newProps[propKey];
     } else if (SHAPE_ATTRS.includes(propKey)) {
@@ -64,7 +66,7 @@ export const getShapeProps = (newProps: Props): ShapeCfg => {
 };
 
 export const bindShapeEvent = (newProps: Props, instance: Instance) => {
-  Object.keys(newProps).forEach(propKey => {
+  Object.keys(newProps).forEach((propKey) => {
     if (isEvent(propKey)) {
       instance.on(getEventName(propKey), newProps[propKey]);
     }
@@ -78,7 +80,7 @@ export const updateProps = (instance: Instance, newProps: Props, oldProps: Props
     zIndexWarningShowed = true;
   }
 
-  Object.keys(oldProps).forEach(key => {
+  Object.keys(oldProps).forEach((key) => {
     const propChanged = oldProps[key] !== newProps[key];
     if (propChanged) {
       if (isEvent(key)) {
@@ -89,7 +91,7 @@ export const updateProps = (instance: Instance, newProps: Props, oldProps: Props
     }
   });
 
-  Object.keys(newProps).forEach(key => {
+  Object.keys(newProps).forEach((key) => {
     const propChanged = oldProps[key] !== newProps[key];
 
     if (propChanged) {
@@ -108,5 +110,5 @@ export const updateProps = (instance: Instance, newProps: Props, oldProps: Props
 
 export const hasUpdate = (newProps: Props, oldProps: Props): boolean => {
   const keys = [...Object.keys(oldProps), ...Object.keys(newProps)];
-  return keys.findIndex(key => newProps[key] !== oldProps[key]) > 0;
+  return keys.findIndex((key) => newProps[key] !== oldProps[key]) > 0;
 };

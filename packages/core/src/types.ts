@@ -1,4 +1,4 @@
-import { IContainer, IShape, Event, PathCommand } from '@antv/g-canvas';
+import { IContainer, IShape, Event, PathCommand, Cursor } from '@antv/g-canvas';
 
 /**
  * host config type
@@ -42,6 +42,8 @@ export const ELEMENT_PROPS = [
   'zIndex',
   'draggable',
 ];
+
+export const GENERAL_SHAPE_ATTR = ['cursor'] as const;
 
 export const COLOR_ATTRS = [
   'fill',
@@ -147,6 +149,7 @@ export type ElementProps = Partial<{
   capture: boolean;
   zIndex: number;
   draggable: boolean;
+  cursor: Cursor;
 }>;
 
 export type StyleProps = Partial<{
