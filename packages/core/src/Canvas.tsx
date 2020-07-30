@@ -16,6 +16,7 @@ interface CanvasBaseProps {
   cursor?: Cursor;
   forwardedRef?: ForwardedRef<GCanvas>;
   children: React.ReactNode;
+  autoDraw?: boolean;
 }
 
 type ForwardedRef<T> = ((instance: T | null) => void) | React.MutableRefObject<T | null> | null;
@@ -30,7 +31,7 @@ export class Canvas extends Component<CanvasProps> {
   private container!: FiberRoot;
 
   componentDidMount() {
-    const { width = 300, height = 200, cursor, draggable } = this.props;
+    const { width = 300, height = 200, cursor, draggable, autoDraw = true } = this.props;
     this.canvas = new GCanvas({
       container: this.canvasRef.current!,
       width,
@@ -38,6 +39,8 @@ export class Canvas extends Component<CanvasProps> {
       cursor,
       draggable,
     });
+
+    this.canvas.set('autoDraw', autoDraw);
 
     this.setRef(this.canvas);
     bindShapeEvent(this.props, this.canvas);
@@ -48,6 +51,7 @@ export class Canvas extends Component<CanvasProps> {
 
   componentDidUpdate(prevProps: Readonly<CanvasProps>) {
     updateProps(this.canvas, this.props, prevProps);
+    this.canvas.set('autoDraw', this.props.autoDraw);
     reconsiler.updateContainer(this.props.children, this.container, null, () => {});
   }
 

@@ -146,6 +146,10 @@ export const reconsiler = ReactReconciler<
     if (parentInstance.isGroup()) {
       (parentInstance as IContainer).add(child);
     }
+    const autoDraw = parentInstance.getCanvas().get('autoDraw');
+    if (!autoDraw) {
+      parentInstance.getCanvas().draw();
+    }
   },
   appendChildToContainer(container: Container, child: Instance | TextInstance): void {
     log('appendChildToContainer', container, child);
@@ -155,6 +159,11 @@ export const reconsiler = ReactReconciler<
     }
 
     container.add(child);
+
+    const autoDraw = container.getCanvas().get('autoDraw');
+    if (!autoDraw) {
+      container.getCanvas().draw();
+    }
   },
   commitTextUpdate(textInstance: TextInstance, oldText: string, newText: string): void {},
   commitMount(
@@ -173,6 +182,10 @@ export const reconsiler = ReactReconciler<
   ): void {
     log('commitUpdate', instance, newProps);
     updateProps(instance, newProps, oldProps);
+    const autoDraw = instance.getCanvas().get('autoDraw');
+    if (!autoDraw) {
+      instance.getCanvas().draw();
+    }
   },
   insertBefore(
     parentInstance: Instance,
@@ -180,6 +193,10 @@ export const reconsiler = ReactReconciler<
     beforeChild: Instance | TextInstance,
   ): void {
     insertBefore(parentInstance, child, beforeChild);
+    const autoDraw = parentInstance.getCanvas().get('autoDraw');
+    if (!autoDraw) {
+      parentInstance.getCanvas().draw();
+    }
   },
   insertInContainerBefore(
     container: Container,
@@ -187,15 +204,27 @@ export const reconsiler = ReactReconciler<
     beforeChild: Instance | TextInstance,
   ): void {
     insertBefore(container, child, beforeChild);
+    const autoDraw = container.getCanvas().get('autoDraw');
+    if (!autoDraw) {
+      container.getCanvas().draw();
+    }
   },
   removeChild(parentInstance: Instance, child: Instance | TextInstance): void {
     log('removeChild', parentInstance, child);
     if (parentInstance.isGroup()) {
       (parentInstance as IContainer).removeChild(child);
     }
+    const autoDraw = parentInstance.getCanvas().get('autoDraw');
+    if (!autoDraw) {
+      parentInstance.getCanvas().draw();
+    }
   },
   removeChildFromContainer(container: Container, child: Instance | TextInstance): void {
     container.removeChild(child);
+    const autoDraw = container.getCanvas().get('autoDraw');
+    if (!autoDraw) {
+      container.getCanvas().draw();
+    }
   },
   resetTextContent(instance: Instance): void {},
 
