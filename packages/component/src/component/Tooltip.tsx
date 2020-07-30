@@ -22,12 +22,6 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
   const tooltipRef = useRef<GGroup>(null);
   const popperElement = useRef(null);
   const [childProps, setChildProps] = useState();
-  // const [childrenPosition, setChildrenPosition] = useState<ShapePosition>({
-  //   x: 0,
-  //   y: 0,
-  //   width: 0,
-  //   height: 0,
-  // });
 
   const [groupPosition, setGroupPosition] = useState<ShapePosition>({
     x: 0,
@@ -39,7 +33,6 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
 
   const setPosition = useCallback(() => {
     if (childrenRef !== null) {
-      // console.log('ref node', childrenRef);
       const canvas: GCanvas = childrenRef.current?.getCanvas();
       const bbox = childrenRef.current?.getBBox();
       const position = canvas.getClientByPoint(bbox?.x || 0, bbox?.y || 0);
@@ -64,9 +57,8 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
   }, []);
 
   useEffect(() => {
-    // console.log('mount --- ');
     setPosition();
-  }, [childProps]);
+  }, [childProps, hovered]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -74,10 +66,6 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
-
-  //  console.log('container', container);
-
-  // console.log('groupPosition', groupPosition);
 
   const virtualReference = useMemo(
     () => ({
@@ -122,11 +110,7 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
     });
   });
 
-  // console.log('position --- ');
-  // console.log('position', groupPosition);
-  // console.log('style', styles);
-
-  return (
+  return hovered ? (
     <Group ref={tooltipRef}>
       <Html>
         <div
@@ -135,7 +119,6 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
           ref={popperElement}
           style={{
             ...styles.popper,
-            // display: hovered ? '' : 'none',
             background: '#333',
             color: 'white',
             padding: '4px 8px',
@@ -160,6 +143,18 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
       >
         {children}
       </Group>
+    </Group>
+  ) : (
+    <Group
+      ref={childrenRef}
+      onMouseenter={() => {
+        setHovered(true);
+      }}
+      onMouseleave={() => {
+        setHovered(false);
+      }}
+    >
+      {children}
     </Group>
   );
 };

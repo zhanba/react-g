@@ -13,7 +13,7 @@
   "license": "MIT",
   "keywords": [
     "react-g",
-    "react-g-canvas",
+    "@react-g/core",
     "react",
     "component",
     "canvas"

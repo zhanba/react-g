@@ -7,11 +7,16 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "father-build"
+    "build": "father-build",
+    "doc": "dumi dev",
+    "build:doc": "dumi build",
+    "deploy": "gh-pages -d docdist"
   },
   "devDependencies": {
-    "father-build": "^1.18.1",
     "@umijs/fabric": "^2.0.8",
+    "dumi": "^1.0.33",
+    "father-build": "^1.18.1",
+    "gh-pages": "^3.1.0",
     "lerna": "latest"
   }
 }
