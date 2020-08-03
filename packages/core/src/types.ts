@@ -138,10 +138,10 @@ export type Points = Array<[number, number]>;
 export type Arrow =
   | {
       path: PathType;
-      d: number;
-      stroke: string;
-      fill: string;
-      lineWidth: string;
+      d?: number;
+      stroke?: string;
+      fill?: string;
+      lineWidth?: string;
     }
   | boolean;
 
