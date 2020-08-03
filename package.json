@@ -7,8 +7,8 @@
     "packages/*"
   ],
   "scripts": {
+    "dev": "dumi dev",
     "build": "father-build",
-    "doc": "dumi dev",
     "build:doc": "dumi build",
     "deploy": "gh-pages -d docdist"
   },

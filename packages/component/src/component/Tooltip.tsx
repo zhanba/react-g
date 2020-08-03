@@ -31,10 +31,10 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
   });
   const childrenRef = useRef<GGroup>(null);
 
-  const setPosition = useCallback(() => {
+  const updatePosition = useCallback(() => {
     if (childrenRef !== null) {
       const canvas: GCanvas = childrenRef.current?.getCanvas();
-      const bbox = childrenRef.current?.getBBox();
+      const bbox = childrenRef.current?.getCanvasBBox();
       const position = canvas.getClientByPoint(bbox?.x || 0, bbox?.y || 0);
       setGroupPosition({
         x: position.x,
@@ -48,7 +48,7 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
   const handleScroll = useCallback(() => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        setPosition();
+        updatePosition();
         ticking = false;
       });
 
@@ -57,7 +57,7 @@ export const Tooltip: React.FC<Props> = ({ content, children }) => {
   }, []);
 
   useEffect(() => {
-    setPosition();
+    updatePosition();
   }, [childProps, hovered]);
 
   useEffect(() => {

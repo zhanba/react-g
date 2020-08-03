@@ -11,7 +11,7 @@ const App: React.FC = () => {
     <div>
       <div style={{ border: '1px solid #bfb3b3' }}>
         <Canvas width={600} height={400} style={{ position: 'relative' }}>
-          <Tooltip content={<div>tootip content</div>}>
+          <Tooltip content="tootip content">
             <Rect
               x={position.x}
               y={position.y}
