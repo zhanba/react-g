@@ -139,6 +139,9 @@ export type Arrow =
   | {
       path: PathType;
       d: number;
+      stroke: string;
+      fill: string;
+      lineWidth: string;
     }
   | boolean;
 

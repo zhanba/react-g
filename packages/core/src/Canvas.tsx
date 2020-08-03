@@ -40,7 +40,7 @@ export class Canvas extends Component<CanvasProps> {
       draggable,
     });
 
-    this.canvas.set('autoDraw', autoDraw);
+    // this.canvas.set('autoDraw', autoDraw);
 
     this.setRef(this.canvas);
     bindShapeEvent(this.props, this.canvas);
@@ -51,7 +51,7 @@ export class Canvas extends Component<CanvasProps> {
 
   componentDidUpdate(prevProps: Readonly<CanvasProps>) {
     updateProps(this.canvas, this.props, prevProps);
-    this.canvas.set('autoDraw', this.props.autoDraw);
+    // this.canvas.set('autoDraw', this.props.autoDraw);
     reconsiler.updateContainer(this.props.children, this.container, null, () => {});
   }
 
