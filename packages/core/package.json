@@ -1,6 +1,6 @@
 {
   "name": "@react-g/core",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "react render for @antv/g-canvas",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
