@@ -24,10 +24,11 @@ export function useZoom(minZoom?: number, maxZoom?: number) {
     } else {
       newMatrix = ext.transform(matrix, [['s', ratio, ratio]]);
     }
-    if (minZoom && matrix[0] < minZoom) {
+
+    if (minZoom && newMatrix[0] < minZoom) {
       return;
     }
-    if (maxZoom && matrix[0] > maxZoom) {
+    if (maxZoom && newMatrix[0] > maxZoom) {
       return;
     }
     view.setMatrix(newMatrix);

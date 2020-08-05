@@ -26,7 +26,8 @@
     "@react-g/core": "^1.0.10",
     "@types/react-dom": "^16.9.8",
     "react-dom": "^16.13.1",
-    "react-popper": "^2.2.3"
+    "react-popper": "^2.2.3",
+    "simplematch": "^0.1.0"
   },
   "peerDependencies": {
     "@types/react": "^16.9.32",

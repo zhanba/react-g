@@ -80,7 +80,7 @@ export const FONT_ATTRS = [
   'fontWeight',
 ] as const;
 
-export const CIRCLE_ATTRS = ['x', 'y', 'r'] as const;
+export const CIRCLE_ATTRS = ['x', 'y', 'r', 'lineWidth'] as const;
 
 export const DOM_ATTRS = ['x', 'y', 'width', 'height', 'html'] as const;
 
@@ -217,6 +217,7 @@ export type CircleProps = Partial<{
   x: number;
   y: number;
   r: number;
+  lineWidth: number;
 }>;
 
 export type EllipseProps = Partial<{

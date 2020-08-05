@@ -14099,6 +14099,11 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+simplematch@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/simplematch/-/simplematch-0.1.0.tgz#903f4d40702bce74fe56290a3a236e1be34d7308"
+  integrity sha512-hKdFGex2R4hfHr4bX2bAWCHvo/JL8uZXne6yV8zEpy6ZDJSrJUHC7h+eMgPRF1XOsldDT/IF5tq/tMIAEpNY1g==
+
 slash2@2.0.0, slash2@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/slash2/-/slash2-2.0.0.tgz#f4e0a11708b8545b912695981cf7096f52c63487"
