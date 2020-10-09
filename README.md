@@ -54,3 +54,9 @@ const App: React.FC = () => {
 
 export default App;
 ```
+
+## Doc
+
+- [@react-g/core](./packages/core/README.md)
+- [@react-g/component](./packages/component/README.md)
+- [@react-g/hooks](./packages/hooks/README.md)
